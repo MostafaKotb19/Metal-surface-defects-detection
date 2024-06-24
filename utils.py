@@ -5,7 +5,7 @@ def dict2namespace(config):
     """
     Converts a dictionary to a namespace.
 
-    Parameters:
+    Args:
         config (dict): The dictionary to be converted.
 
     Returns:
@@ -60,14 +60,14 @@ def max_min_scaler(lst, maxx, minn, index):
     """
     Applies max-min scaling to a list of values.
 
-    Parameters:
-    lst (list): The list of values to be scaled.
-    maxx (float): The maximum value for scaling.
-    minn (float): The minimum value for scaling.
-    index (int): The index of the value to be scaled within each sublist.
+    Args:
+        lst (list): The list of values to be scaled.
+        maxx (float): The maximum value for scaling.
+        minn (float): The minimum value for scaling.
+        index (int): The index of the value to be scaled within each sublist.
 
     Returns:
-    list: The scaled list of values.
+        list: The scaled list of values.
     """
     for i in range(len(lst)):
         for j in range(len(lst[i])):
