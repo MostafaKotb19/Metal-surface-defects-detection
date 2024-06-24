@@ -6,6 +6,7 @@ dataset:
   w2: 200       # NEU-DET
   l1: 1000      # GC10-DET
   l2: 200       # NEU-DET
+  train_val_test_split: [0.7, 0.2, 0.1]
 
 anchor_boxes:
 # Anchor box details

@@ -3,14 +3,14 @@ import tensorflow as tf
 @tf.function
 def modified_mae(y_true, y_pred):
     """
-    Calculates the mean absolute error between the true and predicted values.
+    Calculates the mean absolute error (MAE) between the true values (y_true) and the predicted values (y_pred).
     
-    Parameters:
-    y_true (Tensor): The true values.
-    y_pred (Tensor): The predicted values.
+    Args:
+        y_true (Tensor): The true values.
+        y_pred (Tensor): The predicted values.
     
     Returns:
-    float: The mean absolute error.
+        float: The mean absolute error.
     """
     y_true = tf.cast(y_true, tf.float32)
     y_pred = tf.cast(y_pred, tf.float32)
@@ -28,14 +28,14 @@ def modified_mae(y_true, y_pred):
 @tf.function
 def modified_mse(y_true, y_pred):
     """
-    Calculates the mean squared error (MSE) between the true labels (y_true) and the predicted labels (y_pred).
+    Calculates the mean squared error (MSE) between the true values (y_true) and the predicted values (y_pred).
 
-    Parameters:
-    - y_true: The true labels.
-    - y_pred: The predicted labels.
+    Args:
+        y_true (Tensor): The true values.
+        y_pred (Tensor): The predicted values.
 
     Returns:
-    - The mean squared error between y_true and y_pred.
+        float: The mean squared error.
     """
     y_true = tf.cast(y_true, tf.float32)
     y_pred = tf.cast(y_pred, tf.float32)
@@ -53,6 +53,16 @@ def modified_mse(y_true, y_pred):
 
 @tf.function
 def modified_categorical_crossentropy(y_true, y_pred):
+    """
+    Calculates the categorical crossentropy loss between the true values (y_true) and the predicted values (y_pred).
+
+    Args:
+        y_true (Tensor): The true values.
+        y_pred (Tensor): The predicted values.
+
+    Returns:
+        float: The categorical crossentropy loss.
+    """
     m = y_true.shape[0]
     loss = tf.zeros([])
     for i in range(m):
@@ -66,6 +76,16 @@ c = tf.keras.metrics.CategoricalAccuracy()
 
 @tf.function
 def modified_accuracy(y_true, y_pred):
+    """
+    Calculates the accuracy between the true values (y_true) and the predicted values (y_pred).
+
+    Args:
+        y_true (Tensor): The true values.
+        y_pred (Tensor): The predicted values.
+
+    Returns:
+        float: The accuracy.
+    """
     m = y_true.shape[0]
     total_accuracy = tf.constant(0.0, dtype=tf.float32)
     
@@ -79,12 +99,12 @@ def modified_accuracy(y_true, y_pred):
                 tf.not_equal(tf.argmax(y_true[i][j], axis=-1), 12)   # Exclude class 13 (index 12)
             )
             
-            if tf.reduce_all(mask):  # Ensure that all elements are valid
+            if tf.reduce_all(mask):
                 c.update_state(y_true[i][j], y_pred[i][j])
                 accuracy_sum += c.result()
                 cnt += 1
 
-        if cnt > 0:  # Ensure we don't divide by zero
+        if cnt > 0:
             total_accuracy += accuracy_sum / cnt
     
     total_accuracy /= tf.cast(m, tf.float32)

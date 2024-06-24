@@ -5,6 +5,14 @@ from utils import extract_max, extract_min, max_min_scaler
 from transformers import AutoImageProcessor
 
 class ImagePreprocessing:
+    """
+    Preprocess the images using the ViT Image Processor.
+    
+    Args:
+        X_train (list): A list of training images.
+        X_val (list): A list of validation images.
+        X_test (list): A list of test images.
+    """
     def __init__(self, X_train, X_val, X_test):
         self.X_train = X_train
         self.X_val = X_val
@@ -12,6 +20,9 @@ class ImagePreprocessing:
         self.preprocess()
 
     def preprocess(self):
+        """
+        Preprocess the images using the ViT Image Processor.
+        """
         self.X_train = np.array(self.X_train, dtype= 'float32')
         self.X_val = np.array(self.X_val, dtype= 'float32')
         self.X_test = np.array(self.X_test, dtype= 'float32')
@@ -28,6 +39,15 @@ class ImagePreprocessing:
         
 
 class DimsPreprocessing:
+    """
+    Preprocess the bounding box dimensions.
+
+    Args:
+        y_train (list): A list of training labels.
+        y_val (list): A list of validation labels.
+        y_test (list): A list of test labels.
+        namespace_config (Namespace): A namespace containing the configuration parameters.
+    """
     def __init__(self, y_train, y_val, y_test, namespace_config):
         self.y_train = y_train
         self.y_val = y_val
@@ -36,6 +56,9 @@ class DimsPreprocessing:
         self.preprocess()
 
     def preprocess(self):
+        """
+        Preprocess the bounding box dimensions.
+        """
         self.classes_train, self.dims_train = self.class_dim_split(self.y_train)
         self.classes_val, self.dims_val = self.class_dim_split(self.y_val)
         self.classes_test, self.dims_test = self.class_dim_split(self.y_test)
@@ -64,6 +87,16 @@ class DimsPreprocessing:
         self.cls_test = np.array(self.cls_test, dtype = 'float')
 
     def class_dim_split(self, y):
+        """
+        Split the class labels and bounding box dimensions.
+
+        Args:
+            y (list): A list of labels.
+
+        Returns:
+            list: A list of class labels.
+            list: A list of bounding box dimensions.
+        """
         classes = []
         dims = []
         for i in range(len(y)):
@@ -131,6 +164,9 @@ class DimsPreprocessing:
             self.cls_test[i] = to_categorical(self.cls_test[i], num_classes=self.num_classes)
 
     def np_arraying(self):
+        """
+        Convert the lists to NumPy arrays.
+        """
         for i in range(len(self.offset_train)):
             self.offset_train[i] = np.array(self.offset_train[i], dtype = 'float')
 

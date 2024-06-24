@@ -68,11 +68,18 @@ class Dataset:
                            and item != 'lable']
         
         self.X, self.y = self.load_data(self.dataset_path, self.categories)
-        self.X_train, self.y_train, self.X_val, self.y_val, self.X_test, self.y_test = self.split_data(self.X, self.y)
+
+        self.train_val_test = namespace_config.dataset.train_val_test
+        self.X_train, self.y_train, self.X_val, self.y_val, self.X_test, self.y_test = self.split_data(self.X, self.y, 
+                                                                                                       self.train_val_test)
 
     def calculate_factors(self, w, l):
         """
         Calculate factors for resizing images.
+
+        Args:
+            w (int): The width of the output images.
+            l (int): The length of the output images.
         """
         self.w_factor = self.w1/w
         self.l_factor = self.l1/l
@@ -180,8 +187,24 @@ class Dataset:
                     y.append(annotation)
         return X, y
     
-    def split_data(self, X, y):
-        X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
-        X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.125, random_state=42)
+    def split_data(self, X, y, train_val_test):
+        """
+        Split the data into training, validation, and test sets.
+
+        Args:
+            X (list): A list of images.
+            y (list): A list of labels.
+            train_val_test (tuple): A tuple containing the training, validation, and test set sizes.
+
+        Returns:
+            tuple: A tuple containing the training, validation, and test sets.
+        """
+        assert sum(train_val_test) == 1.0, "The sum of the train, validation, and test sizes must equal 1."
+
+        train_size, val_size, test_size = train_val_test
+
+        X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
+        val_ratio = val_size / (train_size + val_size)
+        X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=val_ratio, random_state=42)
 
         return X_train, y_train, X_val, y_val, X_test, y_test

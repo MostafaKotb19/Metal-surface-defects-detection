@@ -2,6 +2,15 @@ import argparse
 import omegaconf.dictconfig
 
 def dict2namespace(config):
+    """
+    Converts a dictionary to a namespace.
+
+    Parameters:
+        config (dict): The dictionary to be converted.
+
+    Returns:
+        argparse.Namespace: The namespace containing the dictionary values.
+    """
     namespace = argparse.Namespace()
     for key, value in config.items():
         if isinstance(value, dict) or isinstance(value, omegaconf.dictconfig.DictConfig):

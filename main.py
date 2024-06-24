@@ -5,7 +5,7 @@ import argparse
 import yaml
 from utils import dict2namespace
 
-def parse_args_and_config():
+def main():
     parser = argparse.ArgumentParser(description=globals()['__doc__'])
     
     parser.add_argument('-c', '--config', type=str, default='config.yaml', help='Path to the config file')
@@ -21,7 +21,6 @@ def parse_args_and_config():
         dict_config = yaml.load(f, Loader=yaml.FullLoader)
     
     namespace_config = dict2namespace(dict_config)
-    namespace_config.args = args
 
     dataset = Dataset(namespace_config)
     image_preprocessing = ImagePreprocessing(dataset.X_train, dataset.X_val, dataset.X_test)
@@ -39,7 +38,7 @@ def parse_args_and_config():
         model.evaluate()
 
     elif args.test:
-        model.test(args.input, args.output)
-        
+        model.test(args.input, args.output)        
 
-
+if __name__ == '__main__':
+    main()

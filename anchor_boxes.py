@@ -5,10 +5,8 @@ class AnchorBoxes:
     Generate anchor boxes for object detection.
 
     Args:
-        true_boxes (numpy.ndarray): Ground truth bounding boxes of shape (n, 4).
-        true_classes (numpy.ndarray): Ground truth class labels of shape (n,).
-        img_size (tuple): Tuple containing the height and width of the input image.
         namespace_config (Namespace): A namespace containing the configuration settings.
+        img_size (tuple): Tuple containing the height and width of the input image.
 
     Args from NamespaceConfig:
         anchor_boxes (Namespace): Namespace containing anchor box configuration.
@@ -20,9 +18,6 @@ class AnchorBoxes:
         lower_threshold (float): Lower threshold for IoU.
         upper_threshold (float): Upper threshold for IoU.
         anchor_boxes (numpy.ndarray): Anchor boxes of shape (n, 4).
-        assigned_boxes (numpy.ndarray): Index of the assigned ground truth box for each anchor box.
-        offsets (numpy.ndarray): Offset values for xyxy of shape (n, 4).
-        class_labels (numpy.ndarray): Class labels for each anchor box.
     """
 
     def __init__(self, namespace_config, img_size):
@@ -87,23 +82,17 @@ class AnchorBoxes:
         Returns:
             float: Intersection over Union (IoU) score.
         """
-        # Coordinates of intersection rectangle
         x1_inter = max(box1[0], box2[0])
         y1_inter = max(box1[1], box2[1])
         x2_inter = min(box1[2], box2[2])
         y2_inter = min(box1[3], box2[3])
 
-        # Area of intersection rectangle
         intersection_area = max(0, x2_inter - x1_inter + 1) * max(0, y2_inter - y1_inter + 1)
-
-        # Area of both bounding boxes
+        
         box1_area = (box1[2] - box1[0] + 1) * (box1[3] - box1[1] + 1)
         box2_area = (box2[2] - box2[0] + 1) * (box2[3] - box2[1] + 1)
-
-        # Union area
         union_area = box1_area + box2_area - intersection_area
 
-        # Calculate IoU
         iou = intersection_area / union_area
 
         return iou
@@ -152,6 +141,7 @@ class AnchorBoxes:
         Args:
             anchor_boxes (numpy.ndarray): Anchor boxes of shape (n, 4).
             true_boxes (numpy.ndarray): Ground truth bounding boxes of shape (n, 4).
+            assigned_boxes (numpy.ndarray): Index of the assigned ground truth box for each anchor box.
 
         Returns:
             numpy.ndarray: Offset values for xyxy of shape (n, 4).
@@ -194,6 +184,13 @@ class AnchorBoxes:
     def class_offset_split(self, true_boxes, true_classes):
         """
         Split the class labels and offset values.
+
+        Args:
+            true_boxes (list): List of ground truth bounding boxes.
+            true_classes (list): List of class labels.
+
+        Returns:
+            tuple: A tuple containing the offset values and class labels.
         """
         offsets = []
         class_labels = []
