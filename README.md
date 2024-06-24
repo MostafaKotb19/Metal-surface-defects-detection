@@ -7,7 +7,7 @@ This repository contains the implementation of a model for automated detection o
 To create an environment with the requirements:
 ```
 cond env create -f environment.yml
-conda activate mail_sender
+conda activate metal_detection
 ```
 
 ## Usage
