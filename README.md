@@ -43,4 +43,4 @@ python main.py --test --config config.yaml --input /path/to/input/image --output
 
 [preprocessing.py](preprocessing.py) performs all the needed perprocessing on images and labels.
 
-[utils.py] contains useful utils, like min-max scaling, and dict2namespace.
+[utils.py](utils.py) contains useful utils, like min-max scaling, and dict2namespace.
