@@ -10,6 +10,7 @@ def main():
     
     parser.add_argument('-c', '--config', type=str, default='config.yaml', help='Path to the config file')
     parser.add_argument('-t', '--train', action='store_true', default=False, help='train the model')
+    
     parser.add_argument('--evaluate', action='store_true', default=False, help='test the model on the whole test dataset')
     
     parser.add_argument('--test', action='store_true', default=False, help='test the model on a single image')
