@@ -1,0 +1,25 @@
+dataset:
+# Dataset details
+  path: "/path/to/dataset"
+  classes: 13
+  w1: 2048      # GC10-DET
+  w2: 200       # NEU-DET
+  l1: 1000      # GC10-DET
+  l2: 200       # NEU-DET
+
+anchor_boxes:
+# Anchor box details
+  scales: [32, 64, 128]
+  ratios: [0.2, 2, 5]
+  num: 5
+
+training:
+# Training details
+  summary: True
+  weights: ""
+  class_loss_weight: 1.0
+  reg_loss_weight: 1.0
+  optimizer: "SGD"
+  run_eagerly: True
+  batch_size: 8
+  epochs: 200
