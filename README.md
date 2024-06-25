@@ -1,6 +1,6 @@
 # Metal Surface Defects Detection
 
-This repository contains the implementation of a model for automated detection of defects on metal surfaces using Vision Transformers (ViTs). The model leverages the self-attention mechanism of ViTs for enhanced feature extraction, which is then used for defect classification and localization through a combination of CNNs and Multi-Layer Perceptrons (MLPs). This approach aims to improve the efficiency and accuracy of defect detection in metal manufacturing, addressing the limitations of traditional manual inspection methods. The source code and dataset are included to facilitate further research and development in this field.
+This repository contains the implementation of a model for automated detection of defects on metal surfaces using Vision Transformers (ViTs). The model leverages the self-attention mechanism of ViTs for enhanced feature extraction, which is then used for defect classification and localization through a combination of CNNs and Multi-Layer Perceptrons (MLPs). This approach aims to improve the efficiency and accuracy of defect detection in metal manufacturing, addressing the limitations of traditional manual inspection methods. The source code is included to facilitate further research and development in this field.
 
 ## Install
 
